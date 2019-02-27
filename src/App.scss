@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+SC:600|Open+Sans');
+
+.App {
+  text-align: center;
+}
+
+html {
+  box-sizing: border-box;
+  margin: 0; 
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: whitesmoke;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 600;
+  background: url("/images/oriento-744199-unsplash.jpg") no-repeat center center fixed;
+  height: 100vh;
+  background-size: cover;
+}
+
+p {
+  margin: 0;
+}
+
+.home-page-image {
+  position: relative;
+  height: 700px;
+  width: 400px;
+  right: 30%;
+  opacity: 0.7;
+}
+
+.app-header {
+  height: 75px;
+  width: 100vw;
+  display: flex;
+  align-items: center; 
+}
+
+nav {
+  display: flex;
+  height: 75px;
+  align-items: center;
+  width: 100vw;
+  justify-content: space-between;
+  background: inherit;
+
+  button {
+    padding: 10px 15px;
+    margin: 0 10px;
+    background-color: white;
+    border-radius: 15px;
+    
+  }
+
+  .nav-left {
+    display: flex;
+    margin-left: 20px;
+  }
+
+  .nav-right {
+    margin: 0 10px;
+  }
+}
+
+.profile-container {
+  display: flex;
+    .profile-left {
+      display: flex;
+      width: 40vw;
+      background-color: green;
+      justify-content: center;
+      flex-direction: column;
+        .profile-picture-container {
+          display: flex;
+          justify-content: center;
+            .user-image {
+              margin-top: 10%;
+              height: 300px;
+              width: 300px;
+              background-color: white;
+              border-radius: 50%;
+            }
+        }
+    }
+
+    .profile-right {
+      // Styling will go here
+    }
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0 , 0 , .2);
+  width: 60vw;
+  margin: 0 auto;
+  height: 600px;
+}
+
+.game-page {
+  background: url("/images/melanie-magdalena-318289-unsplash.jpg") no-repeat center center fixed;
+  height: 100vh;
+  background-size: cover;
+  z-index: 2;
+}
+
+.game-container {
+  display: grid;
+  height: 90vh;
+  grid-template-columns:  1fr 1fr 1fr;
+  grid-template-rows:  1fr 1fr 1fr;
+  
+  .character-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7em;
+    color: white;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1)
+  }
+  
+  .right-character {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4; 
+  }
+  
+  .left-character {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+  }
+    
+  .top-character {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3; 
+  }
+
+  .middle-character {
+    display: grid;
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+  }
+  
+  .score {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2; 
+    align-items: flex-start;
+  }
+
+}
