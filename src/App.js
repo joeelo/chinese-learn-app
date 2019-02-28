@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
 import GameContainer from "./containers/GameContainer";
 import FormContainer from "./containers/FormContainer";
+import CharacterContainer from './containers/CharacterContainer';
 
 class App extends Component {
 
@@ -73,9 +74,10 @@ class App extends Component {
             <Switch> 
               <Route exact path="/" render={ (props) => <HomePage props={props}/> } />
               <Route exact path="/login" render={ (props) => <FormContainer props={this.state} createUser={this.createUser} loginUser={this.loginUser}/> } />
+              <Route exact path="/characters" render={ (props) => <CharacterContainer characters={this.state.characters}/> }/>
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/game" render={ (props) =>  <GameContainer characters={this.state.characters}/> } />
-              <Route exact path="/sign-up" render={ (props) => <FormContainer props={this.state} createsUser={this.createUser}/> } />
+              <Route exact path="/sign-up" render={ (props) => <FormContainer props={this.state} createUser={this.createUser}/> } />
             </Switch>
         </div>
       </Router>

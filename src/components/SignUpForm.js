@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 
 class SignUpForm extends Component {
+  
   state = {
     email: "",
-    password: "",   
+    password: "" 
   }
 
   changeHandler = (event) => {
@@ -17,8 +18,8 @@ class SignUpForm extends Component {
     
     return (
       <div className="login-form">
-        <h1> Sign Up</h1>
-        <form id="sign-up-form" onSubmit={(event, obj) => this.props.createUser(event, this.state)}>
+        <h1> Sign Up </h1>
+        <form id="sign-up-form" onSubmit={ (event, obj) => this.props.createUser(event, this.state)} >
           <label>Email:  </label> 
 
           <br/>

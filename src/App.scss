@@ -20,10 +20,18 @@ body {
   background: url("/images/oriento-744199-unsplash.jpg") no-repeat center center fixed;
   height: 100vh;
   background-size: cover;
+  min-width: 760px;
 }
 
 p {
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  font-family: 'Noto Serif SC', serif;
+  color: white;
+  font-size: 1.2em;
 }
 
 .home-page-image {
@@ -52,9 +60,8 @@ nav {
   button {
     padding: 10px 15px;
     margin: 0 10px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 15px;
-    
   }
 
   .nav-left {
@@ -65,6 +72,17 @@ nav {
   .nav-right {
     margin: 0 10px;
   }
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0 , 0 , .2);
+  width: 60vw;
+  margin: 0 auto;
+  height: 600px;
 }
 
 .profile-container {
@@ -93,19 +111,23 @@ nav {
     }
 }
 
-.login-form-container {
+.card-container {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  background-color: rgba(0, 0 , 0 , .2);
-  width: 60vw;
-  margin: 0 auto;
-  height: 600px;
+  flex-wrap: wrap;
+    .character-card {
+      width: 20%;
+      margin: 10px;
+      justify-content: center;
+      background-color: rgba(0, 0 , 0 , .2);
+      border-radius: 10px;
+        h1 {
+          font-size: 3em;
+        }
+    }
 }
 
 .game-page {
-  background: url("/images/melanie-magdalena-318289-unsplash.jpg") no-repeat center center fixed;
+  // background: url("/images/melanie-magdalena-318289-unsplash.jpg") no-repeat center center fixed;
   height: 100vh;
   background-size: cover;
   z-index: 2;
@@ -152,6 +174,14 @@ nav {
     grid-column: 1 / 2;
     grid-row: 1 / 2; 
     align-items: flex-start;
+    font-size: 3em;
+    align-items: center;
+  }
+
+  .timer {
+    grid-column: 3 / 4;
+    grid-row:  1 / 2;
+    font-size: 3em;
   }
 
 }

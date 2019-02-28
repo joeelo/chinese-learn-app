@@ -12,11 +12,12 @@ class NavBar extends Component {
 
           <div className="nav-left">
             <button className="nav-button"> <Link to="/"> Home </Link> </button>
-            <button className="nav-button"> <Link to="/profile"> Profile </Link> </button>
             <button className="nav-button"> <Link to="/game"> Play! </Link> </button>
+            <button className="nav-button"> <Link to="/characters"> Characters </Link> </button>
           </div>
 
           <div className="nav-right">
+            <button className="nav-button"> <Link to="/profile"> Profile </Link> </button>
             <button> <Link to="/login"> Login </Link></button>
             <button> <Link to="sign-up"> Sign Up </Link></button>
           </div>

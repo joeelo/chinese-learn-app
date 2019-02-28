@@ -5,7 +5,8 @@ class Game extends Component {
   state = {
     readRules: false,
     score: 0,
-    index: 0
+    index: 0,
+    timer: 30
   }
   
   createGameArray = () => {
@@ -16,20 +17,23 @@ class Game extends Component {
     return gameArray;
   }
 
-  checkCorrect = (event) => {
-    if ( true ) {
-      this.setState({
-        score: this.state.score + 10
-      })
-    } else {
-      alert("try again!")
-    }
-  }
-
   increaseIndex = () => {
     this.setState((prevState) => ({
       index: prevState.index + 3 
     }))
+  }
+
+  gameLogic = (event, char) => {
+    console.log(event.target.innerText)
+    console.log(char);
+    if (char.chinese === event.target.innerText) {
+      this.setState((prevState) => ({
+        score: prevState.score + 10
+      }))
+    } else {
+      console.log("wrong!")
+    }
+    this.increaseIndex();
   }
 
   renderOneCharacter = () => {
@@ -40,59 +44,59 @@ class Game extends Component {
   }
   
   renderGame = () => {
-    let array = this.renderOneCharacter(0)
     this.setState({
       readRules: !this.state.readRules,
-      characterArray: array
     })
   }
 
   createRandomInt = () => {
-    console.log( Math.floor(Math.random() * 3))
     return Math.floor(Math.random() * 3)
   }
 
   render() {
-    console.log(this.createRandomInt())
-    
+      let selectedCharacter = this.renderOneCharacter()[this.createRandomInt()]
+      let topCharacter = this.renderOneCharacter()[0]
+      let leftCharacter = this.renderOneCharacter()[1]
+      let rightCharacter = this.renderOneCharacter()[2]
+
     return (
-
-
       <div>
 
         {!this.state.readRules ? 
-
           <div> 
-            <h1> How to play</h1>
+            <h1> How to play </h1>
             <button onClick={this.renderGame}> Understood </button>  
           </div>
-
-        : 
-             
+        :             
           <div className="game-container" >
             <div className="score character-box">
-              {this.state.score}
+              Score: {this.state.score}
+            </div>
+
+            <div className="timer character-box">
+              
+              Time: {this.state.timer}
             </div>
 
             <div className="middle-character character-box">
-              <span className="main-character" onClick={this.checkCorrect}> {this.renderOneCharacter()[this.createRandomInt()].pronunciation} </span>
+              <span className="main-character" > {selectedCharacter.pronunciation} </span>
             </div>
 
-            <div className="top-character character-box" onClick={this.increaseIndex}>
-              {this.renderOneCharacter()[0].chinese}
+            <div className="top-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter)}>
+              {topCharacter.chinese}
             </div>
 
-            <div className="left-character character-box"> 
-            {this.renderOneCharacter()[1].chinese}
+            <div className="left-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter)}> 
+             {leftCharacter.chinese}
             </div>
 
-            <div className="right-character character-box" >
-            {this.renderOneCharacter()[2].chinese}
+            <div className="right-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter)}>
+              {rightCharacter.chinese}
             </div>
-
 
           </div>
         }
+
       </div>
     )
   }
