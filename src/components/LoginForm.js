@@ -18,7 +18,7 @@ class LoginForm extends Component {
     return (
       <div className="login-form">
       <h1> Login </h1> 
-        <form id="login-form" onSubmit={(event, obj) => this.props.loginUser(event, this.state)}>
+        <form id="login-form" onSubmit={(event) => this.props.loginUser(event, this.state)}>
           <label>Email:  </label> 
 
           <br/>

@@ -13,7 +13,6 @@ html {
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
   color: whitesmoke;
   font-family: 'Noto Serif SC', serif;
   font-weight: 600;
@@ -114,6 +113,7 @@ nav {
 .card-container {
   display: flex;
   flex-wrap: wrap;
+  overflow: scroll;
     .character-card {
       width: 20%;
       margin: 10px;
@@ -124,7 +124,27 @@ nav {
           font-size: 3em;
         }
     }
-}
+  }
+  .search-form {
+    display: flex;
+     input {
+       position: relative;
+       top: -4px;
+       margin-left: 2px;
+       padding: 6px;
+       width: 300px;
+       border-radius: 10px;
+       background-color: rgba(255, 255, 255, 0.2);
+       color: white;
+       font-size: 1.3em;
+       font-family: 'Noto Serif SC', serif;
+     }
+
+     label {
+       font-size: 2em;
+     }
+  }
+  
 
 .game-page {
   // background: url("/images/melanie-magdalena-318289-unsplash.jpg") no-repeat center center fixed;

@@ -15,7 +15,7 @@ class FormContainer extends Component {
         <div className="login-form-container">
           {this.props.loginUser ?
           
-            <LoginForm createUser={this.props.loginUser}/>
+            <LoginForm loginUser={this.props.loginUser}/>
 
           : 
 

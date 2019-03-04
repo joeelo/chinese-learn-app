@@ -12,8 +12,8 @@ class NavBar extends Component {
 
           <div className="nav-left">
             <button className="nav-button"> <Link to="/"> Home </Link> </button>
-            <button className="nav-button"> <Link to="/game"> Play! </Link> </button>
             <button className="nav-button"> <Link to="/characters"> Characters </Link> </button>
+            <button className="nav-button"> <Link to="/game"> Play! </Link> </button>
           </div>
 
           <div className="nav-right">

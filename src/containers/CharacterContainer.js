@@ -18,7 +18,7 @@ class CharacterContainer extends Component {
       <div>
         <div>
           <NavBar />
-          <SearchForm />
+          <SearchForm searchHandler={this.props.searchHandler}/>
         </div>
         <div className="card-container">
           {this.renderCharacters()}
