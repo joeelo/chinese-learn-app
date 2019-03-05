@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import NavBar from "./NavBar"
 
  class Profile extends Component {
 
@@ -19,6 +18,12 @@ import NavBar from "./NavBar"
     }))
   }
 
+  myScores = () => {
+    this.state.scores.filter( (score) => {
+      return score.user_id === this.props.user.id
+    })
+  }
+
   lifeTimeScore = () => {
     let total = 0;
     this.state.scores.map( (score) => total += score.points);
@@ -26,9 +31,9 @@ import NavBar from "./NavBar"
   }
 
   render() {
+    console.log(this.myScores())
     return (
       <div className="profile-page">
-        <NavBar />
         <div className="profile-container">
           <div className="profile-left">
             <div className="profile-picture-container">
@@ -37,9 +42,9 @@ import NavBar from "./NavBar"
               </div>
             </div>
             <div className="user-info">
-              <h1> Joseph Lorenzo </h1>
+              <h1> {this.props.user.name} </h1>
               <h3> Level: Novice</h3>
-              <h3> Points: {this.lifeTimeScore()}</h3>
+              <h3> Points: {this.lifeTimeScore()} </h3>
 
             </div>
           </div>

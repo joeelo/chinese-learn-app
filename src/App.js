@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { withRouter } from "react-router"
 import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
+import NavBar from "./components/NavBar"
 import GameContainer from "./containers/GameContainer";
 import FormContainer from "./containers/FormContainer";
 import CharacterContainer from './containers/CharacterContainer';
@@ -47,6 +48,7 @@ class App extends Component {
 
   createUser = (event, obj) => {
     event.preventDefault();
+    let name = obj.name
     let email = obj.email
     let password = obj.password
     console.log("email:" ,email, "password:", password)
@@ -56,28 +58,33 @@ class App extends Component {
         "Content-Type": "application/json",
         "Accepts": "application/json"
       }, 
-      body: JSON.stringify({ user: { email: email, password: password}})
+      body: JSON.stringify({ user: {name: name, email: email, password: password}})
     })
     .then(res => res.json())
-    .then(console.log) 
+    .then(data => {
+      this.setState({
+        user: data.user
+      })
+      localStorage.setItem("token", data.jwt)
+    })
+
   }
 
   loginUser = (event, obj) => {
     event.preventDefault();
-    let email = obj.email
-    let password = obj.password
-    fetch("http://localhost:3001/api/v1/users", {
+    fetch("http://localhost:3001/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify({ user: { email: email, password: password}})
+      body: JSON.stringify({ user: obj})
     })
     .then(res => res.json())
     .then(data => {
       this.setState({
-      user: data.user})
+      user: data.user
+    })
       localStorage.setItem("token", data.jwt)
       this.props.history.push("/")
     })
@@ -98,10 +105,7 @@ class App extends Component {
     return returnedChars
   }
 
-  userPresent = () => {
-    return Object.keys(this.state.user).length > 0;
-  }
-
+  
   logOut = () => {
     localStorage.removeItem("token");
     this.setState({
@@ -110,19 +114,22 @@ class App extends Component {
     this.props.history.push("/")
   }
   
+  userPresent = () => {
+    return Object.keys(this.state.user).length > 0;
+  }
+
   render() {
-    console.log(this.props)
     return (
 
       <Router> 
         <div className="App">
-            {console.log(this.searchedCharacters())}
+            <NavBar loggedIn={this.userPresent()} logOut={this.logOut}/>
             <Switch> 
               <Route exact path="/" render ={(props) => <HomePage loggedIn={this.userPresent}/> } />
               <Route exact path="/login" render={ (props) => <FormContainer props={this.state} createUser={this.createUser} loginUser={this.loginUser}/> } />
-              <Route exact path="/characters" render={ (props) => <CharacterContainer characters={this.searchedCharacters()} searchHandler={this.searchHandler}/> }/>
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/game" render={ (props) =>  <GameContainer characters={this.state.characters} /> } />
+              <Route exact path="/characters" render={ (props) => <CharacterContainer characters={this.searchedCharacters()} searchHandler={this.searchHandler} user={this.state.user}/> }/>
+              <Route exact path="/profile" render={ (props) => <Profile user={this.state.user}/> } />
+              <Route exact path="/game" render={ (props) =>  <GameContainer characters={this.state.characters} user={this.state.user}/> } />
               <Route exact path="/sign-up" render={ (props) => <FormContainer props={this.state} createUser={this.createUser}/> } />
             </Switch>
         </div>

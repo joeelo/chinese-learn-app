@@ -15,7 +15,7 @@ class CharacterCard extends Component {
           "Content-Type": "application/json",
           "Accept": "application/json"
         }, 
-        body: JSON.stringify({character_id: this.props.character.id, user_id: 15})
+        body: JSON.stringify({character_id: this.props.character.id, user_id: this.props.user.id})
       })
       .then(console.log)
       this.setState({
