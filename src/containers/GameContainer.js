@@ -5,7 +5,7 @@ const GameContainer = (props) => {
 
     return (
       <div className="game-page">
-            <Game characters={props.characters} user={this.props.user}/>
+            <Game characters={props.characters} user={props.user}/>
       </div>
     )
   }

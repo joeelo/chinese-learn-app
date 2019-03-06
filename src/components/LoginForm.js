@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter} from "react-router-dom";
 
 class LoginForm extends Component {
   state = {
@@ -14,12 +14,15 @@ class LoginForm extends Component {
   }
 
   render() {
-    
     return (
       <div className="login-form">
       <h1> Login </h1> 
-        <form id="login-form" onSubmit={(event) => this.props.loginUser(event, this.state)}>
-          <label>Email:  </label> 
+        <form id="login-form" onSubmit={(event) => {
+          this.props.loginUser(event, this.state)
+          .then(() => this.props.history.push("/profile"))
+         
+        }}>
+          <label>Email  </label> 
 
           <br/>
 
@@ -33,7 +36,7 @@ class LoginForm extends Component {
 
           <br/>
 
-          <label>Password: </label> 
+          <label>Password </label> 
 
           <br/>
 
@@ -46,7 +49,7 @@ class LoginForm extends Component {
 
           <br/>
 
-          <input type="submit" value={"Log In"}/> 
+          <input type="submit" value={"Log In"}/>
         </form>
       </div>
     )

@@ -24,7 +24,7 @@ class App extends Component {
       fetch("http://localhost:3001/api/v1/user", {
         headers: {
           "Content-Type": "application/json",
-          Accepts: "application/json",
+          Accept: "application/json",
           Authorization: `${token}`
         }
       })
@@ -52,7 +52,7 @@ class App extends Component {
     let email = obj.email
     let password = obj.password
     console.log("email:" ,email, "password:", password)
-    fetch("http://localhost:3001/api/v1/users", {
+    return fetch("http://localhost:3001/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,15 +64,14 @@ class App extends Component {
     .then(data => {
       this.setState({
         user: data.user
-      })
-      localStorage.setItem("token", data.jwt)
+      }, () => {localStorage.setItem("token", data.jwt)})
     })
 
   }
 
   loginUser = (event, obj) => {
     event.preventDefault();
-    fetch("http://localhost:3001/api/v1/login", {
+    return fetch("http://localhost:3001/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,11 +83,9 @@ class App extends Component {
     .then(data => {
       this.setState({
       user: data.user
+      }, () => {localStorage.setItem("token", data.jwt)})
     })
-      localStorage.setItem("token", data.jwt)
-      this.props.history.push("/")
-    })
-
+    .then(console.log)
   }
   
   searchHandler = (event) => {
@@ -111,7 +108,6 @@ class App extends Component {
     this.setState({
       user: {}
     })
-    this.props.history.push("/")
   }
   
   userPresent = () => {

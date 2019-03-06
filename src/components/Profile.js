@@ -19,14 +19,14 @@ import React, { Component } from 'react'
   }
 
   myScores = () => {
-    this.state.scores.filter( (score) => {
+    return this.state.scores.filter( (score) => {
       return score.user_id === this.props.user.id
     })
   }
 
   lifeTimeScore = () => {
     let total = 0;
-    this.state.scores.map( (score) => total += score.points);
+    this.myScores().map( (score) => total += score.points);
     return total;
   }
 
@@ -38,7 +38,7 @@ import React, { Component } from 'react'
           <div className="profile-left">
             <div className="profile-picture-container">
               <div className="user-image">
-                {/* <img/> */}
+                {/* <img alt="" src=""/>  */}
               </div>
             </div>
             <div className="user-info">
@@ -51,7 +51,7 @@ import React, { Component } from 'react'
           
 
           <div className="profile-right">
-            {/* Favorite Characters Will go here */}
+            <h1 className="profile-quote"> When I let go of what I am, I become what I might be. <br/> -Lao Tzu </h1>
           </div>
         </div>
 

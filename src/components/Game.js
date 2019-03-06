@@ -6,7 +6,7 @@ class Game extends Component {
     readRules: false,
     score: 0,
     index: 0,
-    timer: 30,
+    timer: 10,
     randomInt: Math.floor(Math.random() * 3)
   }
 
@@ -24,6 +24,12 @@ class Game extends Component {
     }))
   }
 
+  changeRandomInt = () => {
+    this.setState({
+      randomInt: Math.floor(Math.random() * 3)
+    })
+  }
+
   gameLogic = (event, char) => {
     if (char.chinese === event.target.innerText) {
       this.setState((prevState) => ({
@@ -33,6 +39,7 @@ class Game extends Component {
       console.log("wrong! or game over")
     }
     this.increaseIndex();
+    this.changeRandomInt();
   }
   
   startTimer = () => {
@@ -49,12 +56,7 @@ class Game extends Component {
     } else {
       clearInterval(this.countDown)
     }
-    if (this.state.timer % 3 === 0 ) {
-      this.increaseIndex();
-      this.setState({
-        randomInt: Math.floor(Math.random() * 3)
-      })
-    }
+
   }
 
   componentWillUnmount = () => {
@@ -79,24 +81,50 @@ class Game extends Component {
     this.startTimer();
   }
 
+  postScore = () => {
+    let scoreObj = {
+      user_id: this.props.user.id,
+      points: this.state.score
+    }
+    if (this.state.timer === 1) {
+      fetch("http://localhost:3001/api/v1/scores", {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json", 
+          "Accept": "application/json"
+        }, 
+        body: JSON.stringify(scoreObj)
+      })
+      .then(res => res.json())
+      .then(console.log)
+  
+    }
+  }
+
   render() {
-      let selectedCharacter = this.renderOneCharacter()[this.state.randomInt]
+      let selectedCharacter = this.renderOneCharacter()
       let topCharacter = this.renderOneCharacter()[0]
       let leftCharacter = this.renderOneCharacter()[1]
       let rightCharacter = this.renderOneCharacter()[2]
-      console.log("re-render")
     return (
       <div>
         
         {!this.state.readRules ? 
           <div> 
             <h1> How to play </h1>
-            <button onClick={this.runFuncs}> Understood </button>  
+            <section className="rules-section">
+              1. There is a 60 second timer, when the timer is up, the game will end
+                <br/>
+              2. When you click on a character if the match is correct your score will increase by 10
+                <br/>
+              3. If you don't know, don't worry you will soon enough, just take your best guess
+            </section>
+            <button className="run-game-btn" onClick={this.runFuncs}> I got this! </button>  
           </div>
 
         :  
         
-          this.state.index < this.props.characters.length - 3 ?
+          this.state.index < this.props.characters.length - 3 && this.state.timer > 0 ?
 
             <div className="game-container" >
               <div className="score character-box">
@@ -110,29 +138,33 @@ class Game extends Component {
 
               <div className="middle-character character-box">
                 <span className="main-character"> 
-                  {selectedCharacter.pronunciation}
+                  {selectedCharacter[this.state.randomInt].pronunciation}
                 </span>
               </div>
 
-              <div className="top-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter)}>
+              <div className="top-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter[this.state.randomInt])}>
                 {topCharacter.chinese}
               </div>
 
-              <div className="left-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter)}> 
+              <div className="left-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter[this.state.randomInt])}> 
               {leftCharacter.chinese}
               </div>
 
-              <div className="right-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter)}>
+              <div className="right-character character-box" onClick={(event) => this.gameLogic(event, selectedCharacter[this.state.randomInt])}>
                 {rightCharacter.chinese}
               </div>
 
             </div>
 
           :
-
-            <div> Completed!</div> 
-        }
-
+            
+            <div> 
+              <h1> Finished! </h1>
+              <h2> Your score is {this.state.score}</h2>
+            </div> 
+          }
+          
+          {this.postScore()}
       </div>
     )
   }

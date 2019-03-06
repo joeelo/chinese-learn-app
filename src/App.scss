@@ -38,7 +38,7 @@ a {
   height: 700px;
   width: 400px;
   right: 30%;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .app-header {
@@ -82,16 +82,30 @@ nav {
   width: 60vw;
   margin: 0 auto;
   height: 600px;
+  border-radius: 10px;
+    input {
+      padding: 10px;
+      width: 50%;
+      border-radius: 4px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    input[type=submit] {
+      margin-top: 80px;
+    }
+
 }
 
 .profile-container {
   display: flex;
+  width: 100%;
     .profile-left {
       display: flex;
-      width: 40vw;
-      background-color: green;
+      width: 100%;
       justify-content: center;
       flex-direction: column;
+      font-size: 1.2em;
         .profile-picture-container {
           display: flex;
           justify-content: center;
@@ -101,12 +115,20 @@ nav {
               width: 300px;
               background-color: white;
               border-radius: 50%;
+              overflow: hidden;
             }
+              img {
+                width: 100%;
+                height: 100%;
+              }
         }
     }
-
     .profile-right {
-      // Styling will go here
+      width: 100%;
+      .profile-quote {
+        font-size: 3em;
+        font-style: italic;
+      }
     }
 }
 

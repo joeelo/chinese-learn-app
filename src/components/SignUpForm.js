@@ -20,8 +20,12 @@ class SignUpForm extends Component {
     return (
       <div className="login-form">
         <h1> Sign Up </h1>
-        <form id="sign-up-form" onSubmit={ (event, obj) => this.props.createUser(event, this.state)} >
-          <label>Name: </label> 
+        <form id="sign-up-form" onSubmit={ (event, obj) => 
+          this.props.createUser(event, this.state)
+          .then(() => {this.props.history.push("/")}) } 
+        >
+
+          <label>Name </label> 
             <br/>
           <input 
           onChange={this.changeHandler}
@@ -30,7 +34,7 @@ class SignUpForm extends Component {
           name="name"
           />
             <br/>
-          <label>Email:  </label> 
+          <label>Email  </label> 
             <br/>
           <input 
             onChange={this.changeHandler}
@@ -40,7 +44,7 @@ class SignUpForm extends Component {
             name="email"
           />
            <br/>
-          <label>Password: </label> 
+          <label>Password </label> 
             <br/>
           <input 
             onChange={this.changeHandler}

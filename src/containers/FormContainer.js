@@ -5,7 +5,6 @@ import SignUpForm from "../components/SignUpForm"
 
 class FormContainer extends Component {
   render() {
-    console.log(this.props)
     return (
       <div>
         <div className="login-form-container">
