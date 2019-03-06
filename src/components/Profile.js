@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
+import LikeComponent from "./LikeComponent"
+import CharacterCard from "./CharacterCard"
 
  class Profile extends Component {
 
   state = {
-    scores: []
+    scores: [],
+    likedChars: []
   }
 
   componentDidMount = () => {
     this.fetchScores();
+    this.fetchLikes();
   }
 
   fetchScores = () => {
@@ -18,11 +22,26 @@ import React, { Component } from 'react'
     }))
   }
 
+  fetchLikes = () => {
+    fetch("http://localhost:3001/api/v1/likes")
+    .then(res => res.json())
+    .then( (likes) => this.setState({
+      likedChars: likes
+    }))
+  }
+
   myScores = () => {
     return this.state.scores.filter( (score) => {
       return score.user_id === this.props.user.id
     })
   }
+
+  myLikes = () => {
+      return this.state.likedChars.filter( (like) => {
+        return like.user_id === this.props.user.id
+      })
+  }
+
 
   lifeTimeScore = () => {
     let total = 0;
@@ -30,8 +49,15 @@ import React, { Component } from 'react'
     return total;
   }
 
+  renderLikes = () => {
+    let likes = this.myLikes().map( (char) => {
+      return <LikeComponent key={char.id} character={char} user={this.props.user} characters={this.myLikes()}/>
+    })
+    return likes
+  }
+
   render() {
-    console.log(this.myScores())
+    console.log(this.myLikes())
     return (
       <div className="profile-page">
         <div className="profile-container">
@@ -54,8 +80,10 @@ import React, { Component } from 'react'
             <h1 className="profile-quote"> When I let go of what I am, I become what I might be. <br/> -Lao Tzu </h1>
           </div>
         </div>
-
-
+{/* 
+        <div className="liked-div">
+          {this.renderLikes()}
+        </div> */}
       </div>
     )
   }

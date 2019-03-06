@@ -80,10 +80,14 @@ class App extends Component {
       body: JSON.stringify({ user: obj})
     })
     .then(res => res.json())
-    .then(data => {
-      this.setState({
-      user: data.user
-      }, () => {localStorage.setItem("token", data.jwt)})
+    .then(data => { 
+      if (data.user) {
+        this.setState({
+        user: data.user
+        }, () => {localStorage.setItem("token", data.jwt)})
+      } else {
+        alert("invalid username or password!")
+      }
     })
     .then(console.log)
   }
@@ -124,7 +128,7 @@ class App extends Component {
               <Route exact path="/" render ={(props) => <HomePage loggedIn={this.userPresent}/> } />
               <Route exact path="/login" render={ (props) => <FormContainer props={this.state} createUser={this.createUser} loginUser={this.loginUser}/> } />
               <Route exact path="/characters" render={ (props) => <CharacterContainer characters={this.searchedCharacters()} searchHandler={this.searchHandler} user={this.state.user}/> }/>
-              <Route exact path="/profile" render={ (props) => <Profile user={this.state.user}/> } />
+              <Route exact path="/profile" render={ (props) => <Profile user={this.state.user} characters={this.state.characters}/> } />
               <Route exact path="/game" render={ (props) =>  <GameContainer characters={this.state.characters} user={this.state.user}/> } />
               <Route exact path="/sign-up" render={ (props) => <FormContainer props={this.state} createUser={this.createUser}/> } />
             </Switch>

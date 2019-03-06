@@ -6,7 +6,7 @@ class Game extends Component {
     readRules: false,
     score: 0,
     index: 0,
-    timer: 10,
+    timer: 30,
     randomInt: Math.floor(Math.random() * 3)
   }
 

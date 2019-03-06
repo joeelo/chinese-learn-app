@@ -19,8 +19,7 @@ class LoginForm extends Component {
       <h1> Login </h1> 
         <form id="login-form" onSubmit={(event) => {
           this.props.loginUser(event, this.state)
-          .then(() => this.props.history.push("/profile"))
-         
+          .then(() => this.props.history.push("/"))
         }}>
           <label>Email  </label> 
 
