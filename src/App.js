@@ -36,7 +36,6 @@ class App extends Component {
           this.setState({ user: data.user })
         }
       })
-      .then(console.log)
     }
   }
 

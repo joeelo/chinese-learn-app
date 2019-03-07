@@ -1,5 +1,5 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { Component } from 'react'
-import LikeComponent from "./LikeComponent"
 import CharacterCard from "./CharacterCard"
 
  class Profile extends Component {
@@ -23,7 +23,7 @@ import CharacterCard from "./CharacterCard"
   }
 
   fetchLikes = () => {
-    fetch("http://localhost:3001/api/v1/likes")
+    fetch(`http://localhost:3001/api/v1/user/${this.props.user.id}/likes`)
     .then(res => res.json())
     .then( (likes) => this.setState({
       likedChars: likes
@@ -36,35 +36,35 @@ import CharacterCard from "./CharacterCard"
     })
   }
 
-  myLikes = () => {
-      return this.state.likedChars.filter( (like) => {
-        return like.user_id === this.props.user.id
-      })
-  }
-
-
   lifeTimeScore = () => {
     let total = 0;
     this.myScores().map( (score) => total += score.points);
     return total;
   }
 
-  renderLikes = () => {
-    let likes = this.myLikes().map( (char) => {
-      return <LikeComponent key={char.id} character={char} user={this.props.user} characters={this.myLikes()}/>
+  removeLikeHandler = (likeObj) => {
+    let newArr = this.state.likedChars.filter((char) => char.id !== likeObj.id)
+    this.setState({
+      likedChars: newArr
     })
-    return likes
   }
 
+  renderLikes = () => {
+    let liked = this.state.likedChars.map( (char) => {
+      return <CharacterCard key={char.name} character={char} user={this.props.user} renderedBy={true} removeLikeHandler={this.removeLikeHandler}/>
+    })
+    return liked
+  }
+
+
   render() {
-    console.log(this.myLikes())
     return (
       <div className="profile-page">
         <div className="profile-container">
           <div className="profile-left">
             <div className="profile-picture-container">
               <div className="user-image">
-                {/* <img alt="" src=""/>  */}
+                <img alt="profile-image" src="https://chinesecalligraphystore.com/free-chinese-symbols/chinese-symbol-pictures/chinese-symbol-for-water.gif"/> 
               </div>
             </div>
             <div className="user-info">
@@ -80,10 +80,10 @@ import CharacterCard from "./CharacterCard"
             <h1 className="profile-quote"> When I let go of what I am, I become what I might be. <br/> -Lao Tzu </h1>
           </div>
         </div>
-{/* 
-        <div className="liked-div">
-          {this.renderLikes()}
-        </div> */}
+
+         <div className="liked-div">
+           {this.renderLikes()}
+         </div>
       </div>
     )
   }

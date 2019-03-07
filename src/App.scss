@@ -132,6 +132,13 @@ nav {
     }
 }
 
+.liked-div {
+  display: flex;
+    .character-card {
+      width: 20%;
+    }
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
