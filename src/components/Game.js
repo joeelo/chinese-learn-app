@@ -113,11 +113,17 @@ class Game extends Component {
           <div> 
             <h1> How to play </h1>
             <section className="rules-section">
-              1. There is a 60 second timer, when the timer is up, the game will end
-                <br/>
-              2. When you click on a character if the match is correct your score will increase by 10
-                <br/>
-              3. If you don't know, don't worry you will soon enough, just take your best guess
+              1. There is a 30 second timer, 
+                  <br/>
+                when the timer is up, the game will end
+                  <br/>
+              2. When you click on a character, 
+                  <br/>
+                if the match is correct your score will increase by 10
+                  <br/>
+              3. If you don't know, don't worry, 
+                  <br/> 
+                you will soon enough, just take your best guess
             </section>
             <button className="run-game-btn" onClick={this.runFuncs}> I got this! </button>  
           </div>
@@ -164,7 +170,7 @@ class Game extends Component {
             </div> 
           }
           
-          {this.postScore()}
+          {this.state.timer === 1 ? this.postScore() : null}
       </div>
     )
   }

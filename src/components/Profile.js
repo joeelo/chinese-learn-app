@@ -42,16 +42,16 @@ import CharacterCard from "./CharacterCard"
     return total;
   }
 
-  removeLikeHandler = (likeObj) => {
-    let newArr = this.state.likedChars.filter((char) => char.id !== likeObj.id)
+  removeLikeHandler = (characterId) => {
+    let newArr = this.state.likedChars.filter((char) => char.id !== characterId)
     this.setState({
       likedChars: newArr
     })
   }
 
   renderLikes = () => {
-    let liked = this.state.likedChars.map( (char) => {
-      return <CharacterCard key={char.name} character={char} user={this.props.user} renderedBy={true} removeLikeHandler={this.removeLikeHandler}/>
+    let liked = this.state.likedChars.map( (char, index) => {
+      return <CharacterCard key={index} character={char} user={this.props.user} renderedBy={true} removeLikeHandler={this.removeLikeHandler}/>
     })
     return liked
   }

@@ -4,8 +4,7 @@ import React, { Component } from 'react'
 class CharacterCard extends Component {
 
   state = {
-    liked: false, 
-    destroyed: 1
+    liked: false
   }
 
   likeHandler = () => {
@@ -30,6 +29,11 @@ class CharacterCard extends Component {
     }
   }
 
+  unlikeFunctions = (characterId) => {
+    this.props.removeLikeHandler(characterId);
+    this.unlikeHandler();
+  }
+
   unlikeHandler = () => {
     let userId = this.props.user.id
     let characterId = this.props.character.id
@@ -40,10 +44,8 @@ class CharacterCard extends Component {
         "Accept": "application/json"
       }, 
       body: JSON.stringify({character_id: characterId, user_id: userId})
-    }).then(res => res.json())
-    .then(this.setState({
-      destroyed: this.state.destroyed + 1 
-    }))
+    })
+    .then(res => res.json())
   }
 
   render() {
@@ -54,9 +56,9 @@ class CharacterCard extends Component {
         <h3> {this.props.character.meaning}</h3>
 
           {!this.props.renderedBy ? 
-            <button onClick={this.likeHandler}> Like </button>
+            <button className="like-button" onClick={this.likeHandler}> Like </button>
           :
-            <button onClick={this.unlikeHandler}> Unlike </button>
+            <button className="like-button" onClick={() => this.unlikeFunctions(this.props.character.id)}> Unlike </button>
           }
 
       </div>
