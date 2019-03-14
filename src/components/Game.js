@@ -7,7 +7,16 @@ class Game extends Component {
     score: 0,
     index: 0,
     timer: 30,
-    randomInt: Math.floor(Math.random() * 3)
+    randomInt: Math.floor(Math.random() * 3),
+    gameFinished: false
+  }
+
+  componentDidUpdate() {
+    this.endGameConditions();
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.countDown);
   }
 
   createGameArray = () => {
@@ -36,7 +45,7 @@ class Game extends Component {
         score: prevState.score + 10
       }))
     } else {
-      console.log("wrong! or game over")
+      console.log("wrong!")
     }
     this.increaseIndex();
     this.changeRandomInt();
@@ -58,10 +67,6 @@ class Game extends Component {
     }
 
   }
-
-  componentWillUnmount = () => {
-    clearInterval(this.countDown);
-  }
   
   renderOneCharacter = () => {
     let currentIndex = this.state.index
@@ -82,11 +87,11 @@ class Game extends Component {
   }
 
   postScore = () => {
-    let scoreObj = {
-      user_id: this.props.user.id,
-      points: this.state.score
-    }
-    if (this.state.timer === 1) {
+    if (this.state.gameFinished === true) {
+      let scoreObj = {
+        user_id: this.props.user.id,
+        points: this.state.score
+      }
       fetch("http://localhost:3001/api/v1/scores", {
         method: "POST",
         headers: {
@@ -96,11 +101,25 @@ class Game extends Component {
         body: JSON.stringify(scoreObj)
       })
       .then(res => res.json())
-      .then(console.log)
-  
+      .then(this.setState({
+        gameFinished: false,
+        index: 0,
+        timer: 0
+      }))
+      .then(console.log("score: ", this.state.score))
     }
   }
 
+  endGameConditions = () => {
+    if ((this.state.timer === 1 && this.state.gameFinished === false) || (this.state.index > 45 && this.state.gameFinished === false)) {
+      this.setState({
+        gameFinished: true
+      })
+      console.log("finished")
+    }
+    this.postScore();
+  }
+  
   render() {
       let selectedCharacter = this.renderOneCharacter()
       let topCharacter = this.renderOneCharacter()[0]
@@ -114,15 +133,15 @@ class Game extends Component {
             <h1> How to play </h1>
             <section className="rules-section">
               1. There is a 30 second timer, 
-                  <br/>
+                  <br/><br/>
                 when the timer is up, the game will end
-                  <br/>
-              2. When you click on a character, 
-                  <br/>
-                if the match is correct your score will increase by 10
-                  <br/>
+                  <br/><br/>
+              2. Click on a character, and if the character you've chosen 
+                  <br/><br/>
+                 matches the pinyin your score will increase by 10
+                  <br/><br/>
               3. If you don't know, don't worry, 
-                  <br/> 
+                  <br/> <br/>
                 you will soon enough, just take your best guess
             </section>
             <button className="run-game-btn" onClick={this.runFuncs}> I got this! </button>  
@@ -163,15 +182,15 @@ class Game extends Component {
             </div>
 
           :
-            
+
             <div> 
               <h1> Finished! </h1>
               <h2> Your score is {this.state.score}</h2>
             </div> 
-          }
-          
-          {this.state.timer === 1 ? this.postScore() : null}
+            
+        }
       </div>
+
     )
   }
 }

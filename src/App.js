@@ -50,7 +50,6 @@ class App extends Component {
     let name = obj.name
     let email = obj.email
     let password = obj.password
-    console.log("email:" ,email, "password:", password)
     return fetch("http://localhost:3001/api/v1/users", {
       method: "POST",
       headers: {
@@ -100,7 +99,7 @@ class App extends Component {
 
   searchedCharacters = () => {
     let returnedChars = (this.state.characters.filter(char => {
-      return char.meaning.includes(this.state.searchValue)
+      return (char.meaning.includes(this.state.searchValue) || char.pronunciation.includes(this.state.searchValue))
     } ))
     return returnedChars
   }

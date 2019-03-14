@@ -54,7 +54,7 @@ nav {
   align-items: center;
   width: 100vw;
   justify-content: space-between;
-  background: inherit;
+  background-color: rgba(0, 0 , 0 , .2);
 
   button {
     padding: 10px 15px;
@@ -128,12 +128,14 @@ nav {
       .profile-quote {
         font-size: 3em;
         font-style: italic;
+        padding: 10px;
       }
     }
 }
 
 .liked-div {
   display: flex;
+  flex-wrap: wrap;
     .character-card {
       width: 20%;
     }
@@ -162,12 +164,16 @@ nav {
   border-radius: 2px;
   transition: all 0.5s ease;
   color: black;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .like-button:hover {
   background-color: rgba(0, 0 , 0 , .4);
   color: white;
+}
+
+input[type=text] {
+  font-size: 1em;
 }
 
 .search-form {
@@ -249,4 +255,20 @@ nav {
     font-size: 3em;
   }
 
+  
+}
+
+.run-game-btn {
+  width: 100px;
+  background-color: rgba(255, 255 , 255 , .1);
+  padding: 10px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+  font-size: 1em;
+}
+.run-game-btn:hover {
+  background-color: white;
+  color: black;
 }
