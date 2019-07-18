@@ -7,8 +7,9 @@ This app pulls from two Rails API's to give a user the ability to go over charac
 You must create / sign in to an account to be able to use it. 
 
 ### Link to backend
-https://github.com/joeelo/quotes-api
-https://github.com/joeelo/chinese-api
+Quotes API - https://github.com/joeelo/quotes-api 
+
+Character API - https://github.com/joeelo/chinese-api
 
 ## Run 
 >** Make sure you have Postgresql running **
